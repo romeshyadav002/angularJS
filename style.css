@@ -53,3 +53,13 @@ li {
 .delete-btn:hover {
   background-color: #ff1a1a;
 }
+
+.ng-invalid.ng-dirty{
+  border-color: red;
+}
+.ng-valid.ng-dirty{
+  border-color: green;
+}
+input,textarea{
+  border: 2px solid;
+}

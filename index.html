@@ -6,6 +6,7 @@
   <link rel="stylesheet" href="style.css">
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
   <script src="app.js"></script>
+  <script src="review.js"></script>
 </head>
 <body>
 
@@ -14,13 +15,74 @@
 
     <input type="text" ng-model="newTask" placeholder="Enter a task">
     <button ng-click="addTask()">Add Task</button>
-
+    <div>{{newTask}}</div>
     <ul>
       <li ng-repeat="task in tasks">
         {{ $index + 1 }}. {{ task }}
         <button ng-click="deleteTask($index)" class="delete-btn">Delete</button>
       </li>
     </ul>
+
+    <div ng-init = "a=5;b=6;">
+      <p>The area is {{a*b}}</p>
+      <p>The area is <span ng-bind = "a*b"></span></p>
+    </div>
+    <div ng-init = "fname='john';lname='doe'">
+      <p>Full name is {{fname +" " + lname}} </p>
+      <p>Full name is <span ng-bind ="fname + ' ' + lname" ></span></p>
+    </div>
+    <div ng-init = "even=[2,4,6,8]">
+      <p> {{even[2]}}</p>
+      <p ng-bind="even[1]"></p>
+    </div>
+
+    <p ng-hide="isSpy">My full name is {{fullName}}</p>
+    <p ng-show="isSpy">My codename is {{codename}}</p>
+    <p>My function call {{getFirstName()}}</p>
+
+    <div ng-repeat="employee in employees | limitTo:2 | orderBy : '-salary'">
+      <p> FirstName is {{employee.fname | uppercase | limitTo:3}}</p>
+      <p> FirstName is {{employee.lname | lowercase}}</p>
+      <p> FirstName is {{employee.salary | currency}}</p>
+    </div>
+    <div>
+      <button ng-click="count = count+1;toggleShow()">Click Me</button>
+      <p ng-show="show"> the count is {{count}}</p>
+    </div>
+
+    <!-- Forms and ng-model -->
+     <h2>Reviews</h2>
+     <div ng-repeat="review in reviews">
+      <div>
+        <p>{{review.comment}}</p>
+        <p>{{review.by}}</p>
+      </div>
+     </div>
+
+     <!-- 
+          ng-valid
+          ng-invalid
+          ng-pristine
+          ng-dirty
+           -->
+      <!-- Initial invalid and pristine
+       Invalid -> invalid dirty
+       valid -> valid and dirty  -->
+     <form name="reviewForm" ng-submit="reviewForm.$valid && addReview()" novalidate>
+        <p>{{form.comment}}</p>
+        <p>{{form.by}}</p>
+
+        <label >Comment</label><br/>
+        <textarea ng-model="form.comment" required></textarea><br/>
+        <label >Author</label><br/>
+        <input ng-model="form.by" type="email" required/>
+        <input type="submit" value="Add Review">
+        <p>Form valid? {{reviewForm.$valid}}</p>
+
+        <div ng-include="userInfo.html"></div>
+        <userinformation></userinformation>
+     </form>
+
   </div>
 
 </body>
